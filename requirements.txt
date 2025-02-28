@@ -1,0 +1,8 @@
+flask==2.3.2
+faiss-cpu
+sentence-transformers==2.2.2
+transformers==4.38.2
+torch==2.2.0
+pandas==2.1.1
+beautifulsoup4==4.12.2
+nltk==3.8.1
