@@ -6,8 +6,10 @@ from langchain_community.vectorstores import FAISS
 from langchain.chains import RetrievalQA
 from langchain.llms.base import LLM
 from typing import Any, Dict
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 class GeminiLLM(LLM):
     # Define class variables for Pydantic
