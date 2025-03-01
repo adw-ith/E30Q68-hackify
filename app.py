@@ -47,6 +47,12 @@ When answering questions:
    - Potential legal implications and considerations
    - Possible courses of action based on established legal principles
 
+The Result should be concise and point-wise:
+1. A brief summary of the legal provisions or principles addressed by the context
+2. A brief summary of the potential legal implications
+3. A brief summary of potential courses of action based on established legal principles
+4. And finally list all the relevant IPC sections
+
 If the context doesn't fully address the question:
 1. Clearly state what part cannot be answered from the available context
 2. Provide general legal guidance based on common principles of Indian law
