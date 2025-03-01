@@ -54,7 +54,7 @@ def main():
 
     # Step 3: Group sentences into overlapping chunks
     print("Creating text chunks...")
-    chunks = chunk_text(sentences, chunk_size=5, overlap=1)
+    chunks = chunk_text(sentences, chunk_size=10, overlap=1)
     print("Total chunks created:", len(chunks))
 
     # Step 4: Create a vectorstore using LangChain's FAISS wrapper
