@@ -4,12 +4,20 @@ import google.generativeai as genai
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain.chains import RetrievalQA
+from query import PolicyQueryEngine
 from langchain.llms.base import LLM
 from typing import Any, Dict
 from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
+
+try:
+    query_engine = PolicyQueryEngine()
+    app.logger.info("Policy Query Engine initialized successfully")
+except Exception as e:
+    app.logger.error(f"Failed to initialize Policy Query Engine: {str(e)}")
+    query_engine = None
 
 class GeminiLLM(LLM):
     # Define class variables for Pydantic
@@ -103,6 +111,33 @@ Frame your advice in practical, action-oriented terms while acknowledging legal 
             } for doc in result["source_documents"]
         ]
     }
+
+@app.route('/querygov', methods=['POST'])
+def query_policy():
+    # Check if the query engine was initialized successfully
+    if query_engine is None:
+        return jsonify({
+            "status": "error",
+            "answer": "Policy Query Engine is not initialized. Please check server logs."
+        }), 500
+    
+    # Get the question from the request
+    data = request.get_json()
+    
+    if not data or 'question' not in data:
+        return jsonify({
+            "status": "error",
+            "answer": "No question provided. Please send a JSON with a 'question' field."
+        }), 400
+
+    
+    question = data['question']
+    
+    # Process the question
+    result = query_engine.query(question)
+    
+    return jsonify(result)
+
 
 @app.route('/api/query', methods=['POST'])
 def api_query():
